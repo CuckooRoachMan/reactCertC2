@@ -5,24 +5,63 @@ import {Card, CardImg, CardImgOverlay, CardText,CardBody,CardTitle } from 'react
 
 class DishDetail extends Component {
 
-  
 
+  renderComments(comments){
+
+    const commentsConst = comments.map((comment)=>{
+
+      return(
+        <div key={comment.id}>
+        <ul className="list-unstyled">
+          <li className="">{comment.comment}</li>
+          <li className="">-- {comment.author},{comment.date}</li>
+        </ul>
+        </div>
+      )
+
+
+    });
+    if(comments!=null){
+      return(
+        <div>
+        <h4>
+        Comments
+        </h4>
+          {commentsConst}
+        </div>
+
+
+      );
+    }
+
+    else {
+      return(
+        <div></div>
+      );
+    }
+  }
   render() {
 
     return (
+      <div className="row">
 
-      <row className="row">
-        <Card>
-          <CardImg width="100%" src={this.props.image} alt={this.props.name}/>
-          <CardBody>
-            <CardTitle>{this.props.name}</CardTitle>
-            <CardText>{this.props.description}</CardText>
-          </CardBody>
-        </Card>
-      </row>
+        <div className="col-5 m-1">
+          <Card>
+            <CardImg width="100%" src={this.props.image} alt={this.props.name}/>
+            <CardBody>
+              <CardTitle>{this.props.name}</CardTitle>
+              <CardText>{this.props.description}</CardText>
+            </CardBody>
+          </Card>
+        </div>
+
+        <div className="col-5 m-1">
+          {this.renderComments(this.props.comments)}
+        </div>
+
+      </div>
 
 
-      //<h1>{this.props.name}</h1>
     );
   }
 }
