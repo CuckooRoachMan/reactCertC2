@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
-import {Card, CardImg, CardImgOverlay, CardText,CardBody,CardTitle } from 'reactstrap';
-
+import {Card, CardImg, CardImgOverlay, CardText,CardBody,CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
   function RenderComments({comments}){
+
     const commentsConst = comments.map((comment)=>{
       return(
         <div key={comment.id}>
         <ul className="list-unstyled">
           <li className="">{comment.comment}</li>
-          <li className="">-- {comment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
+          <li className="">{comment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
         </ul>
         </div>
       )
     });
+
     if(comments!=null){
       return(
         <div>
@@ -37,6 +39,21 @@ import {Card, CardImg, CardImgOverlay, CardText,CardBody,CardTitle } from 'react
     if (dish!=null) {
       return(
         <div className="container">
+          <div className="row">
+            <Breadcrumb>
+              <BreadcrumbItem >
+                <Link to="/home">Home</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem active >
+                {dish.name}
+              </BreadcrumbItem>
+            </Breadcrumb>
+            <div className="col-12">
+              <h3>{dish.name}</h3><hr/>
+            </div>
+          </div>
+
+
           <div className="row ">
             <div className="col-12 col-md-5 m-1">
               <Card>
@@ -47,10 +64,9 @@ import {Card, CardImg, CardImgOverlay, CardText,CardBody,CardTitle } from 'react
                   </CardBody>
               </Card>
             </div>
-            <div className="col-12 col-md-5 m-1">
-              <RenderComments comments={dish.comments}/>
-            </div>
+
           </div>
+
         </div>
 
       )
@@ -61,12 +77,19 @@ import {Card, CardImg, CardImgOverlay, CardText,CardBody,CardTitle } from 'react
 
 
 const DishDetail = (props) => {
+
   const {
     dish
   } = props;
-    console.log(props);
+  console.log(props)
     return (
+      <>
       <RenderDish dish={dish}/>
+        <div className="col-12 col-md-5 m-1">
+          <RenderComments comments={props.comments}/>
+        </div>
+      </>
+
     );
   }
 
