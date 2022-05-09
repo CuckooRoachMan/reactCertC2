@@ -81,7 +81,6 @@ const DishDetail = (props) => {
   const {
     dish
   } = props;
-  console.log(props)
     return (
       <>
       <RenderDish dish={dish}/>
